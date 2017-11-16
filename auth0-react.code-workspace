@@ -1,0 +1,31 @@
+{
+  "folders": [
+    {
+      "path": "authorization"
+    },
+    {
+      "path": "calling-an-api"
+    },
+    {
+      "path": "login"
+    },
+    {
+      "path": "token-reneval"
+    },
+    {
+      "path": "user-profile"
+    }
+  ],
+  "settings": {
+    "files.exclude": {
+      "**/.git": true,
+      "**/.svn": true,
+      "**/.hg": true,
+      "**/CVS": true,
+      "**/.DS_Store": true,
+      "**/node_modules": true
+    },
+    "typescript.useCodeSnippetsOnMethodSuggest": true,
+    "typescript.referencesCodeLens.enabled": true
+  }
+}
