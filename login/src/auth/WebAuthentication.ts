@@ -1,5 +1,8 @@
+import autobind from 'autobind-decorator';
+import { AUTH_CONFIG } from './configuration';
 import { Auth0Authentication } from './Auth0Authentication';
-import { Auth0DecodedHash, WebAuth } from 'auth0-js';
+import { Auth0DecodedHash, Auth0Error, WebAuth } from 'auth0-js';
+import { createBrowserHistory, History } from 'history';
 
 /**
  * Web based Auth0 authentication
@@ -15,18 +18,67 @@ export class WebAuthentication implements Auth0Authentication {
    * @type {WebAuth}
    * @memberof WebAuthenticationManager
    */
-  auth0: WebAuth;
-  authenticated: boolean;
+  auth0: WebAuth = new WebAuth({
+    domain: AUTH_CONFIG.domain,
+    clientID: AUTH_CONFIG.clientId,
+    redirectUri: AUTH_CONFIG.callbackUrl,
+    audience: `https://${AUTH_CONFIG.domain}/userinfo`,
+    scope: 'openid',
+  });
+
+  /**
+   * @property
+   * @type {History}
+   * @memberof WebAuthentication
+   */
+  history: History = createBrowserHistory();
+
+  get authenticated(): boolean {
+    // Check whether the current time is past the
+    // access token's expiry time
+    let expiresAt = JSON.parse(localStorage.getItem('expires_at')!);
+    return new Date().getTime() < expiresAt;
+  }
+
+  @autobind
   login(): void {
-    throw new Error('Method not implemented.');
+    this.auth0.authorize();
   }
+
+  @autobind
   handleAuthentication(): void {
-    throw new Error('Method not implemented.');
+    this.auth0.parseHash((e: Auth0Error, result: Auth0DecodedHash) => {
+      if (result && result.accessToken && result.idToken) {
+        this.setSession(result);
+        this.history.replace('/home');
+      } else if (e) {
+        this.history.replace('/home');
+        // tslint:disable-next-line:no-console
+        console.error(e);
+        alert(`Error: ${e.error}. Check the console for further details.`);
+      }
+    });
   }
+
+  @autobind
   setSession(authResult: Auth0DecodedHash): void {
-    throw new Error('Method not implemented.');
+    const { accessToken, expiresIn, idToken } = authResult;
+    // Set the time that the access token will expire at
+    let expiresAt = JSON.stringify(expiresIn! * 1000 + new Date().getTime());
+    localStorage.setItem('access_token', accessToken!);
+    localStorage.setItem('id_token', idToken!);
+    localStorage.setItem('expires_at', expiresAt);
+    // navigate to the home route
+    this.history.replace('/home');
   }
+
+  @autobind
   logout(): void {
-    throw new Error('Method not implemented.');
+    // Clear access token and ID token from local storage
+    localStorage.removeItem('access_token');
+    localStorage.removeItem('id_token');
+    localStorage.removeItem('expires_at');
+    // navigate to the home route
+    this.history.replace('/home');
   }
 }
