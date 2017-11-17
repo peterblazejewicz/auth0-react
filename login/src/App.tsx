@@ -1,9 +1,13 @@
-import * as React from 'react';
+import React, { Component } from 'react';
 import './App.css';
+import { Auth0Authentication } from './auth/Auth0Authentication';
 
 const logo = require('./logo.svg');
 
-class App extends React.Component {
+export interface AppProps {
+  auth: Auth0Authentication;
+}
+class App extends Component<AppProps, {}> {
   render() {
     return (
       <div className="App">
