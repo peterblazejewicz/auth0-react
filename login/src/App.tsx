@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import './App.css';
 import { Auth0Authentication } from './auth/Auth0Authentication';
+import { RouteComponentProps } from 'react-router';
 
 const logo = require('./logo.svg');
 
-export interface AppProps {
+export interface AppProps extends RouteComponentProps<AppProps> {
   auth: Auth0Authentication;
 }
 class App extends Component<AppProps, {}> {
