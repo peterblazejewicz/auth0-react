@@ -1,9 +1,8 @@
 import autobind from 'autobind-decorator';
+import history from '../utils/history';
 import { AUTH_CONFIG } from './configuration';
 import { Auth0Authentication } from './Auth0Authentication';
 import { Auth0DecodedHash, Auth0Error, WebAuth } from 'auth0-js';
-import { createBrowserHistory, History } from 'history';
-
 /**
  * Web based Auth0 authentication
  *
@@ -26,13 +25,6 @@ export class WebAuthentication implements Auth0Authentication {
     scope: 'openid',
   });
 
-  /**
-   * @property
-   * @type {History}
-   * @memberof WebAuthentication
-   */
-  history: History = createBrowserHistory();
-
   get authenticated(): boolean {
     // Check whether the current time is past the
     // access token's expiry time
@@ -50,9 +42,9 @@ export class WebAuthentication implements Auth0Authentication {
     this.auth0.parseHash((e: Auth0Error, result: Auth0DecodedHash) => {
       if (result && result.accessToken && result.idToken) {
         this.setSession(result);
-        this.history.replace('/home');
+        history.replace('/home');
       } else if (e) {
-        this.history.replace('/home');
+        history.replace('/home');
         // tslint:disable-next-line:no-console
         console.error(e);
         alert(`Error: ${e.error}. Check the console for further details.`);
@@ -69,7 +61,7 @@ export class WebAuthentication implements Auth0Authentication {
     localStorage.setItem('id_token', idToken!);
     localStorage.setItem('expires_at', expiresAt);
     // navigate to the home route
-    this.history.replace('/home');
+    history.replace('/home');
   }
 
   @autobind
@@ -79,6 +71,6 @@ export class WebAuthentication implements Auth0Authentication {
     localStorage.removeItem('id_token');
     localStorage.removeItem('expires_at');
     // navigate to the home route
-    this.history.replace('/home');
+    history.replace('/home');
   }
 }
