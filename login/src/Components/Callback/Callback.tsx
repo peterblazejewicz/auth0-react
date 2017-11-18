@@ -3,7 +3,7 @@ const loading = require('./loading.svg');
 
 export interface CallbackProps {}
 
-export const Callback: SFC<CallbackProps> = props => {
+const Callback: SFC<CallbackProps> = props => {
   const style: CSSProperties = {
     position: 'absolute',
     display: 'flex',
@@ -23,3 +23,4 @@ export const Callback: SFC<CallbackProps> = props => {
     </div>
   );
 };
+export default Callback;

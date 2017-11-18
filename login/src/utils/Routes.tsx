@@ -1,11 +1,9 @@
+import history from './history';
 import React, { SFC } from 'react';
-import App from './App';
-import history from './utils/history';
-import { Callback } from './Callback';
-import { Home } from './Home';
+import { App, Callback, Home } from '../Components';
 import { Route, RouteComponentProps } from 'react-router';
 import { Router } from 'react-router-dom';
-import { WebAuthentication } from './auth/WebAuthentication';
+import { WebAuthentication } from '../auth/WebAuthentication';
 
 const auth = new WebAuthentication();
 
@@ -15,7 +13,7 @@ const handleAuthentication = (props: RouteComponentProps<{}>) => {
   }
 };
 
-export const Routes: SFC<{}> = () => {
+const Routes: SFC<{}> = () => {
   return (
     <Router history={history}>
       <div>
@@ -37,3 +35,4 @@ export const Routes: SFC<{}> = () => {
     </Router>
   );
 };
+export default Routes;

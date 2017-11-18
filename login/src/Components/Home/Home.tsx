@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
-import { Auth0Authentication } from './auth/Auth0Authentication';
 import autobind from 'autobind-decorator';
+import React, { Component } from 'react';
+import { Auth0Authentication } from '../../auth/Auth0Authentication';
 
 export interface HomeProps {
   auth: Auth0Authentication;
 }
-export class Home extends Component<HomeProps, {}> {
+export default class Home extends Component<HomeProps, {}> {
   @autobind
   login() {
     this.props.auth.login();
@@ -24,10 +24,7 @@ export class Home extends Component<HomeProps, {}> {
             <h1 className="display-3">You are not logged in!</h1>
             <p>Please log in to continue.</p>
             <p>
-              <button
-                className="btn btn-primary btn-lg"
-                onClick={this.login}
-              >
+              <button className="btn btn-primary btn-lg" onClick={this.login}>
                 Log In
               </button>
             </p>

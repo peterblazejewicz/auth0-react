@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import { Auth0Authentication } from './auth/Auth0Authentication';
-import { NavLink } from 'react-router-dom';
 import autobind from 'autobind-decorator';
+import React, { Component } from 'react';
+import { Auth0Authentication } from '../../auth/Auth0Authentication';
+import { NavLink } from 'react-router-dom';
 import './App.css';
 
 export interface AppProps {
