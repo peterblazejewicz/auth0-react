@@ -1,24 +1,62 @@
 import React, { Component } from 'react';
-import './App.css';
 import { Auth0Authentication } from './auth/Auth0Authentication';
-
-const logo = require('./logo.svg');
+import { NavLink } from 'react-router-dom';
+import autobind from 'autobind-decorator';
+import './App.css';
 
 export interface AppProps {
   auth: Auth0Authentication;
 }
 class App extends Component<AppProps, {}> {
+  @autobind
+  login() {
+    this.props.auth.login();
+  }
+
+  @autobind
+  logout() {
+    this.props.auth.logout();
+  }
+
   render() {
+    const { authenticated } = this.props.auth;
     return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.tsx</code> and save to reload.
-        </p>
-      </div>
+      <nav className="navbar navbar-expand navbar-dark bg-dark">
+        <NavLink className="navbar-brand" to="/">
+          Auth0 - React
+        </NavLink>
+        <ul className="navbar-nav mr-auto">
+          <li className="nav-item">
+            <NavLink className="nav-link" to="/home" activeClassName="active">
+              Home
+            </NavLink>
+          </li>
+        </ul>
+        <ul className="navbar-nav ml-auto">
+          {!authenticated && (
+            <li className="nav-item">
+              <button
+                className="btn btn-outline-primary my-2 my-sm-0"
+                type="submit"
+                onClick={this.login}
+              >
+                Log In
+              </button>
+            </li>
+          )}
+          {authenticated && (
+            <li className="nav-item">
+              <button
+                className="btn btn-outline-primary my-2 my-sm-0"
+                type="submit"
+                onClick={this.logout}
+              >
+                Log Out
+              </button>
+            </li>
+          )}
+        </ul>
+      </nav>
     );
   }
 }

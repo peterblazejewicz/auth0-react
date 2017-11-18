@@ -13,16 +13,25 @@ export class Home extends Component<HomeProps, {}> {
   render() {
     const { authenticated } = this.props.auth;
     return (
-      <div className="container">
-        {authenticated && <h4>You are logged in!</h4>}
+      <div className="jumbotron">
+        {authenticated && (
+          <div className="container">
+            <h1 className="display-3">You are logged in!</h1>
+          </div>
+        )}
         {!authenticated && (
-          <h4>
-            You are not logged in! Please{' '}
-            <a style={{ cursor: 'pointer' }} onClick={this.login}>
-              Log In
-            </a>{' '}
-            to continue.
-          </h4>
+          <div className="container">
+            <h1 className="display-3">You are not logged in!</h1>
+            <p>Please log in to continue.</p>
+            <p>
+              <button
+                className="btn btn-primary btn-lg"
+                onClick={this.login}
+              >
+                Log In
+              </button>
+            </p>
+          </div>
         )}
       </div>
     );
