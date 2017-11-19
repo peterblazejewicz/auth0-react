@@ -1,6 +1,6 @@
 import history from './history';
 import React, { SFC } from 'react';
-import { App, Callback, Home, Profile } from '../Components';
+import { App, Callback, Home, Ping, Profile } from '../Components';
 import { Redirect, Route, RouteComponentProps } from 'react-router';
 import { Router } from 'react-router-dom';
 import { WebAuthentication } from '../auth/WebAuthentication';
@@ -31,6 +31,15 @@ const Routes: SFC<{}> = () => {
                 <Redirect to="/home" />
               ) : (
                 <Profile auth={auth} {...props} />
+              )}
+          />
+          <Route
+            path="/ping"
+            render={props =>
+              !authenticated ? (
+                <Redirect to="/home" />
+              ) : (
+                <Ping auth={auth} {...props} />
               )}
           />
           <Route

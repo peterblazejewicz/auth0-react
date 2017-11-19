@@ -42,6 +42,13 @@ class App extends Component<AppProps, {}> {
               </NavLink>
             </li>
           )}
+          {authenticated && (
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/ping" activeClassName="active">
+                Ping
+              </NavLink>
+            </li>
+          )}
         </ul>
         <ul className="navbar-nav ml-auto">
           {!authenticated && (

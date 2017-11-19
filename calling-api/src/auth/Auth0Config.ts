@@ -9,6 +9,12 @@ export interface Auth0Config {
    * @type {string}
    * @memberof Auth0Config
    */
+  apiUrl: string;
+  /**
+   * @property
+   * @type {string}
+   * @memberof Auth0Config
+   */
   domain: string;
   /**
    * @property

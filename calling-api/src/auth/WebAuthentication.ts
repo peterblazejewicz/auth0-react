@@ -34,9 +34,9 @@ export class WebAuthentication implements Auth0Authentication {
     domain: AUTH_CONFIG.domain,
     clientID: AUTH_CONFIG.clientId,
     redirectUri: AUTH_CONFIG.callbackUrl,
-    audience: `https://${AUTH_CONFIG.domain}/userinfo`,
+    audience: AUTH_CONFIG.apiUrl,
     responseType: 'token id_token',
-    scope: 'openid profile',
+    scope: 'openid profile read:messages',
   });
 
   get authenticated(): boolean {
