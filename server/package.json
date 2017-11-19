@@ -1,0 +1,32 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc",
+    "clean": "rimraf build",
+    "start": "npm run clean && npm run build && node build/server.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.4",
+    "dotenv": "^4.0.0",
+    "express": "^4.16.2",
+    "express-jwt": "^5.3.0",
+    "express-jwt-authz": "^1.0.0",
+    "jwks-rsa": "^1.2.1",
+    "morgan": "^1.9.0"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.3",
+    "@types/dotenv": "^4.0.2",
+    "@types/express": "^4.0.39",
+    "@types/express-jwt": "^0.0.38",
+    "@types/morgan": "^1.7.35",
+    "eslint": "^4.11.0",
+    "prettier": "^1.8.2",
+    "rimraf": "^2.6.2",
+    "tslint": "^5.8.0",
+    "typescript": "^2.6.1"
+  }
+}
