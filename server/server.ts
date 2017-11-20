@@ -38,6 +38,7 @@ const checkJwt: RequestHandler = jwt({
   algorithms: ['RS256'],
 });
 const checkScopes: RequestHandler = expressJwtAuthz(['read:messages']);
+const checkScopesAdmin: RequestHandler = expressJwtAuthz(['write:messages']);
 
 app.get('/api/public', function(req: Request, res: Response) {
   res.json({
@@ -54,6 +55,16 @@ app.get('/api/private', checkJwt, checkScopes, function(
   res.json({
     message:
       'Hello from a private endpoint! You need to be authenticated and have a scope of read:messages to see this.',
+  });
+});
+
+app.get('/api/admin', checkJwt, checkScopesAdmin, function(
+  req: Request,
+  res: Response,
+) {
+  res.json({
+    message:
+      'Hello from an admin endpoint! You need to be authenticated and have a scope of write:messages to see this.',
   });
 });
 
