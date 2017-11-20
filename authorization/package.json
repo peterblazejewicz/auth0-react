@@ -1,5 +1,5 @@
 {
-  "name": "login",
+  "name": "authorization",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
