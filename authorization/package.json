@@ -20,7 +20,6 @@
     "eject": "react-scripts-ts eject"
   },
   "devDependencies": {
-    "@types/auth0-js": "^8.10.2",
     "@types/autobind-decorator": "^1.3.3",
     "@types/axios": "^0.14.0",
     "@types/history": "^4.6.2",

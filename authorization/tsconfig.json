@@ -4,6 +4,10 @@
     "module": "esnext",
     "target": "es5",
     "lib": ["es6", "dom"],
+    "types": [
+      "node",
+      "jest"
+    ],
     "sourceMap": true,
     "allowJs": true,
     "jsx": "react",
@@ -18,7 +22,10 @@
     "noUnusedLocals": true,
     "allowSyntheticDefaultImports": true,
     "emitDecoratorMetadata": true,
-    "experimentalDecorators": true
+    "experimentalDecorators": true,
+    "typeRoots": [
+      "types/"
+    ]
   },
   "exclude": [
     "node_modules",
