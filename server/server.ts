@@ -58,7 +58,7 @@ app.get('/api/private', checkJwt, checkScopes, function(
   });
 });
 
-app.get('/api/admin', checkJwt, checkScopesAdmin, function(
+app.post('/api/admin', checkJwt, checkScopesAdmin, function(
   req: Request,
   res: Response,
 ) {

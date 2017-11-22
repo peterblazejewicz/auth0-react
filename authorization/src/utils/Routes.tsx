@@ -1,6 +1,6 @@
 import history from './history';
 import React, { SFC } from 'react';
-import { App, Callback, Home, Ping, Profile } from '../Components';
+import { App, Callback, Home, Ping, Profile, Admin } from '../Components';
 import { Redirect, Route, RouteComponentProps } from 'react-router';
 import { Router } from 'react-router-dom';
 import { WebAuthentication } from '../auth/WebAuthentication';
@@ -14,7 +14,7 @@ const handleAuthentication = (props: RouteComponentProps<{}>) => {
 };
 
 const Routes: SFC<{}> = () => {
-  const { authenticated } = auth;
+  const { authenticated, userHasScopes } = auth;
   return (
     <Router history={history}>
       <div>
@@ -47,8 +47,7 @@ const Routes: SFC<{}> = () => {
           <Route
             path="/admin"
             render={props =>
-              !authenticated ||
-              !userHasScopes(['write:messages']) ? (
+              !authenticated || !userHasScopes(['write:messages']) ? (
                 <Redirect to="/home" />
               ) : (
                 <Admin auth={auth} {...props} />

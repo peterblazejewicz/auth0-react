@@ -24,6 +24,13 @@ export class WebAuthentication implements Auth0Authentication {
     }
     return accessToken;
   }
+
+  /**
+   * @private
+   * @memberof WebAuthentication
+   */
+  requestedScopes = 'openid profile read:messages write:messages';
+
   /**
    * @property
    * @private
@@ -36,7 +43,7 @@ export class WebAuthentication implements Auth0Authentication {
     redirectUri: AUTH_CONFIG.callbackUrl,
     audience: AUTH_CONFIG.apiUrl,
     responseType: 'token id_token',
-    scope: 'openid profile read:messages write:messages ',
+    scope: this.requestedScopes,
   });
 
   get authenticated(): boolean {
@@ -106,7 +113,9 @@ export class WebAuthentication implements Auth0Authentication {
     // use it to set scopes in the session for the user. Otherwise
     // use the scopes as requested. If no scopes were requested,
     // set it to nothing
-    const scopes = authResult.scope || this.requestedScopes || '';
+    // tslint:disable-next-line:no-string-literal
+    const scopes = scope || this.requestedScopes || '';
+    // const scopes = authResult.scope || this.requestedScopes || '';
     localStorage.setItem('access_token', accessToken!);
     localStorage.setItem('id_token', idToken!);
     localStorage.setItem('expires_at', expiresAt);
