@@ -36,7 +36,7 @@ export class WebAuthentication implements Auth0Authentication {
     redirectUri: AUTH_CONFIG.callbackUrl,
     audience: AUTH_CONFIG.apiUrl,
     responseType: 'token id_token',
-    scope: 'openid profile read:messages',
+    scope: 'openid profile read:messages write:messages ',
   });
 
   get authenticated(): boolean {
@@ -99,12 +99,18 @@ export class WebAuthentication implements Auth0Authentication {
 
   @autobind
   setSession(authResult: Auth0DecodedHash): void {
-    const { accessToken, expiresIn, idToken } = authResult;
+    const { accessToken, expiresIn, idToken, scope } = authResult;
     // Set the time that the access token will expire at
     let expiresAt = JSON.stringify(expiresIn! * 1000 + new Date().getTime());
+    // If there is a value on the `scope` param from the authResult,
+    // use it to set scopes in the session for the user. Otherwise
+    // use the scopes as requested. If no scopes were requested,
+    // set it to nothing
+    const scopes = authResult.scope || this.requestedScopes || '';
     localStorage.setItem('access_token', accessToken!);
     localStorage.setItem('id_token', idToken!);
     localStorage.setItem('expires_at', expiresAt);
+    localStorage.setItem('scopes', JSON.stringify(scopes));
     // navigate to the home route
     history.replace('/home');
   }
@@ -118,5 +124,13 @@ export class WebAuthentication implements Auth0Authentication {
     this.userProfile = null;
     // navigate to the home route
     history.replace('/home');
+  }
+
+  @autobind
+  userHasScopes(scopes: string[]): boolean {
+    const grantedScopes = JSON.parse(localStorage.getItem('scopes')!).split(
+      ' ',
+    );
+    return scopes.every(scope => grantedScopes.includes(scope));
   }
 }

@@ -31,7 +31,8 @@ const Routes: SFC<{}> = () => {
                 <Redirect to="/home" />
               ) : (
                 <Profile auth={auth} {...props} />
-              )}
+              )
+            }
           />
           <Route
             path="/ping"
@@ -40,7 +41,19 @@ const Routes: SFC<{}> = () => {
                 <Redirect to="/home" />
               ) : (
                 <Ping auth={auth} {...props} />
-              )}
+              )
+            }
+          />
+          <Route
+            path="/admin"
+            render={props =>
+              !authenticated ||
+              !userHasScopes(['write:messages']) ? (
+                <Redirect to="/home" />
+              ) : (
+                <Admin auth={auth} {...props} />
+              )
+            }
           />
           <Route
             path="/callback"

@@ -54,4 +54,13 @@ export interface Auth0Authentication {
    * @memberof AuthenticationManager
    */
   logout(): void;
+
+  /**
+   * Given a string with grants: `'read:messages write:messages'`
+   * returns boolean if current scope matches passed ones
+   * @param {Array<string>} scopes
+   * @returns {boolean}
+   * @memberof Auth0Authentication
+   */
+  userHasScopes(scopes: string[]): boolean;
 }
