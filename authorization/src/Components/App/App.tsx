@@ -19,7 +19,7 @@ class App extends Component<AppProps, {}> {
   }
 
   render() {
-    const { authenticated } = this.props.auth;
+    const { authenticated, userHasScopes } = this.props.auth;
     return (
       <nav className="navbar navbar-expand navbar-dark bg-dark">
         <NavLink className="navbar-brand" to="/">
@@ -49,6 +49,18 @@ class App extends Component<AppProps, {}> {
               </NavLink>
             </li>
           )}
+          {authenticated &&
+            userHasScopes(['write:messages']) && (
+              <li className="nav-item">
+                <NavLink
+                  className="nav-link"
+                  to="/admin"
+                  activeClassName="active"
+                >
+                  Admin
+                </NavLink>
+              </li>
+            )}
         </ul>
         <ul className="navbar-nav ml-auto">
           {!authenticated && (
