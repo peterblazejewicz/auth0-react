@@ -4,8 +4,10 @@ import { Request, Response } from 'express';
 import { RequestHandler } from 'express-serve-static-core';
 import jwksRsa = require('jwks-rsa');
 import cors = require('cors');
-const express = require('express');
 import morgan = require('morgan');
+
+const express = require('express');
+const staticFile = require('connect-static-file');
 
 require('dotenv').config({
   path: '.env.local',
@@ -17,6 +19,7 @@ if (!process.env.AUTH0_DOMAIN || !process.env.AUTH0_AUDIENCE) {
 const app = express();
 
 app.use(cors());
+app.use('/silent', staticFile(`${__dirname}/silent.html`));
 app.use(
   morgan(
     'API Request (port 3001): :method :url :status :response-time ms - :res[content-length]',
