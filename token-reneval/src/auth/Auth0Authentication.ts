@@ -63,4 +63,11 @@ export interface Auth0Authentication {
    * @memberof Auth0Authentication
    */
   userHasScopes(scopes: string[]): boolean;
+
+  /**
+   * Executes a silent authentication transaction under the hood
+   * in order to fetch a new tokens for the current session
+   * @memberof Auth0Authentication
+   */
+  renewToken(): void;
 }

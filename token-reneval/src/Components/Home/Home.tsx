@@ -28,6 +28,18 @@ export default class Home extends Component<HomeProps, {}> {
                 Log Out
               </button>
             </p>
+            <h3>About Your Access Token</h3>
+            <p>
+              Your <code>access_token</code> has an expiry date of:{' '}
+              {this.getExpiryDate()}
+            </p>
+            <p>
+              The token has been scheduled for renewal using silent
+              authentication, but you can also renew it manually from the navbar
+              if you don't want to wait. This manual renewal button is really
+              just for demonstration and you probably won't want such a control
+              in your actual application.
+            </p>
           </div>
         )}
         {!authenticated && (
@@ -43,5 +55,14 @@ export default class Home extends Component<HomeProps, {}> {
         )}
       </div>
     );
+  }
+
+  /**
+   * @returns stringified information about expiration date
+   * @memberof Home
+   */
+  private getExpiryDate() {
+    const expiresAt = JSON.parse(localStorage.getItem('expires_at')!);
+    return JSON.stringify(new Date(expiresAt));
   }
 }

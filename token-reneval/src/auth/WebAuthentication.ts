@@ -14,6 +14,12 @@ import { UserProfile } from './../Model/UserProfile';
 export class WebAuthentication implements Auth0Authentication {
   /**
    * @property
+   * @type {NodeJS.Timer}
+   * @memberof WebAuthentication
+   */
+  tokenRenewalTimeout: NodeJS.Timer;
+  /**
+   * @property
    * @readonly
    * @memberof WebAuthentication
    */
@@ -59,6 +65,13 @@ export class WebAuthentication implements Auth0Authentication {
    * @memberof WebAuthentication
    */
   userProfile: UserProfile | null;
+
+  /**
+   * Creates instance of web authentication using Auth0
+   */
+  constructor() {
+    this.scheduleRenewal();
+  }
 
   /**
    * Get user profile from local storage
@@ -135,11 +148,51 @@ export class WebAuthentication implements Auth0Authentication {
     history.replace('/home');
   }
 
+  /**
+   * @see {@link Auth0Authentication#renewToken}
+   * @memberof WebAuthentication
+   */
+  renewToken(): void {
+    this.auth0.renewAuth(
+      {
+        audience: AUTH_CONFIG.apiUrl,
+        redirectUri: AUTH_CONFIG.silentAuthRedirect,
+        usePostMessage: true,
+        postMessageDataType: 'auth0:silent-authentication',
+      },
+      (err: Auth0Error, result: Auth0DecodedHash) => {
+        if (err) {
+          alert(
+            `Could not get a new token using silent authentication (${
+              err.error
+            }).`,
+          );
+        } else {
+          this.setSession(result);
+          alert(`Successfully renewed auth!`);
+        }
+      },
+    );
+  }
+
   @autobind
   userHasScopes(scopes: string[]): boolean {
     const grantedScopes = JSON.parse(localStorage.getItem('scopes')!).split(
       ' ',
     );
     return scopes.every(scope => grantedScopes.includes(scope));
+  }
+
+  /**
+   * Reschedule token reneval
+   * @private
+   * @memberof WebAuthentication
+   */
+  private scheduleRenewal(): void {
+    const expiresAt = JSON.parse(localStorage.getItem('expires_at')!);
+    const delay = expiresAt - Date.now();
+    if (delay > 0) {
+      this.tokenRenewalTimeout = setTimeout(() => this.renewToken(), delay);
+    }
   }
 }

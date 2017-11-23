@@ -668,17 +668,98 @@ export interface ParseHashOptions {
 }
 
 export interface RenewAuthOptions {
+    /**
+     * your Auth0 domain
+     * @type {string}
+     * @memberof RenewAuthOptions
+     */
     domain?: string;
+    /**
+     * your Auth0 client identifier obtained when creating the client in the Auth0 Dashboard
+     * @type {string}
+     * @memberof RenewAuthOptions
+     */
     clientID?: string;
+    /**
+     * url that the Auth0 will redirect after Auth with the Authorization Response
+     * @type {string}
+     * @memberof RenewAuthOptions
+     */
     redirectUri?: string;
+    /**
+     * type of the response used by OAuth 2.0 flow. It can be any space separated
+     * list of the values `code`, `token`, `id_token`.
+     * {@link https://openid.net/specs/oauth-v2-multiple-response-types-1_0}
+     * @type {string}
+     * @memberof RenewAuthOptions
+     */
     responseType?: string;
+    /**
+     * how the Auth response is encoded and redirected back to the client.
+     * Supported values are `query`, `fragment` and `form_post`.
+     * The `query` value is only supported when `responseType` is `code`.
+     * {@link https://openid.net/specs/oauth-v2-multiple-response-types-1_0.html#ResponseModes}
+     * @type {string}
+     * @memberof RenewAuthOptions
+     */
     responseMode?: string;
+    /**
+     * value used to mitigate XSRF attacks.
+     * {@link https://auth0.com/docs/protocols/oauth2/oauth-state}
+     * @type {string}
+     * @memberof RenewAuthOptions
+     */
     state?: string;
+    /**
+     * value used to mitigate replay attacks when using Implicit Grant.
+     * {@link https://auth0.com/docs/api-auth/tutorials/nonce}
+     * @type {string}
+     * @memberof RenewAuthOptions
+     */
     nonce?: string;
+    /**
+     * scopes to be requested during Auth. e.g. `openid email`
+     * @type {string}
+     * @memberof RenewAuthOptions
+     */
     scope?: string;
+    /**
+     * identifier of the resource server who will consume the access token issued after Auth
+     * @type {string}
+     * @memberof RenewAuthOptions
+     */
     audience?: string;
-    usePostMessage?: boolean;
+    /**
+     * identifier data type to look for in postMessage event data, where events are initiated
+     * from silent callback urls, before accepting a message event is the event expected.
+     * A value of false means any postMessage event will trigger a callback.
+     * @type {string}
+     * @memberof RenewAuthOptions
+     */
     postMessageDataType?: string;
+    /**
+     * origin of redirectUri to expect postMessage response from.
+     * Defaults to the origin of the receiving window. Only used if usePostMessage is truthy.
+     * @type {string}
+     * @memberof RenewAuthOptions
+     */
+    postMessageOrigin?: string;
+    /**
+     * value in milliseconds used to timeout when the `/authorize` call is failing
+     * as part of the silent authentication with postmessage enabled due to a configuration.
+     * @type {number}
+     * @memberof RenewAuthOptions
+     */
+    timeout?: number;
+    /**
+     * use postMessage to comunicate between the silent callback and the SPA.
+     * When false the SDK will attempt to parse the url hash should ignore the url hash
+     * and no extra behaviour is needed
+     * @default false
+     * @type {boolean}
+     * @memberof RenewAuthOptions
+     */
+    usePostMessage?: boolean;
 }
 
 export interface AuthorizeOptions {

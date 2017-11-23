@@ -18,6 +18,11 @@ class App extends Component<AppProps, {}> {
     this.props.auth.logout();
   }
 
+  @autobind
+  renewToken() {
+    this.props.auth.renewToken();
+  }
+
   render() {
     const { authenticated, userHasScopes } = this.props.auth;
     return (
@@ -71,6 +76,17 @@ class App extends Component<AppProps, {}> {
                 onClick={this.login}
               >
                 Log In
+              </button>
+            </li>
+          )}
+          {authenticated && (
+            <li className="nav-item">
+              <button
+                className="btn btn-outline-info my-2 my-sm-0"
+                type="submit"
+                onClick={this.renewToken}
+              >
+                Renew Token
               </button>
             </li>
           )}

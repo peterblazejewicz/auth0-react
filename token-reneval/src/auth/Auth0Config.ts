@@ -28,4 +28,11 @@ export interface Auth0Config {
    * @memberof Auth0Config
    */
   callbackUrl: string;
+  /**
+   * @property url that the Auth0 will redirect after
+   * Auth with the Authorization Response
+   * @type {string}
+   * @memberof Auth0Config
+   */
+  silentAuthRedirect?: string;
 }
