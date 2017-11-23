@@ -14,10 +14,11 @@ import { UserProfile } from './../Model/UserProfile';
 export class WebAuthentication implements Auth0Authentication {
   /**
    * @property
-   * @type {NodeJS.Timer}
+   * @type {number}
    * @memberof WebAuthentication
    */
-  tokenRenewalTimeout: NodeJS.Timer;
+  // tslint:disable-next-line:no-any
+  tokenRenewalTimeout: number;
   /**
    * @property
    * @readonly
@@ -192,7 +193,7 @@ export class WebAuthentication implements Auth0Authentication {
     const expiresAt = JSON.parse(localStorage.getItem('expires_at')!);
     const delay = expiresAt - Date.now();
     if (delay > 0) {
-      this.tokenRenewalTimeout = setTimeout(() => this.renewToken(), delay);
+      this.tokenRenewalTimeout = window.setTimeout(() => this.renewToken(), delay);
     }
   }
 }

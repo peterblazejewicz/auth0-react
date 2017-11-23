@@ -82,7 +82,7 @@ class App extends Component<AppProps, {}> {
           {authenticated && (
             <li className="nav-item">
               <button
-                className="btn btn-outline-info my-2 my-sm-0"
+                className="btn btn-outline-info my-2 my-sm-0 mr-2"
                 type="submit"
                 onClick={this.renewToken}
               >
