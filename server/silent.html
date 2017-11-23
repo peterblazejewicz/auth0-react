@@ -1,0 +1,14 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="https://unpkg.com/auth0-js@8.11.3/build/auth0.min.js"></script>
+  <script>
+      parent.postMessage({
+        hash: window.location.hash,
+        type: 'auth0:silent-authentication'
+      }, "http://localhost:3000/");
+  </script>
+</head>
+<body></body>
+</html>
