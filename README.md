@@ -1,5 +1,7 @@
 # Auth0 React Samples
 
+![Sample of Auth0 based application auth2](https://user-images.githubusercontent.com/14539/33188496-921671dc-d09a-11e7-8f26-c07b8334b1ca.png)
+
 These samples demonstrate how to add authentication to a React application with Auth0. Each folder contains a distinct application so that various Auth0 features can be viewed in isolation.
 
 ## Embedded Integration Samples
