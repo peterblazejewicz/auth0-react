@@ -1,4 +1,5 @@
 import React, { CSSProperties, SFC } from 'react';
+
 const loading = require('../Common/loading.svg');
 
 export interface CallbackProps {}

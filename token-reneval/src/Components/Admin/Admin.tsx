@@ -1,8 +1,9 @@
 import autobind from 'autobind-decorator';
 import axios from 'axios';
 import React, { Component } from 'react';
-import { API_URL } from '../../Model/constants';
+
 import { Auth0Authentication } from '../../auth/Auth0Authentication';
+import { API_URL } from '../../Model/constants';
 
 export interface AdminProps {
   /**

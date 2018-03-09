@@ -1,5 +1,6 @@
 import autobind from 'autobind-decorator';
 import React, { Component } from 'react';
+
 import { Auth0Authentication } from '../../auth/Auth0Authentication';
 
 export interface HomeProps {

@@ -9,7 +9,7 @@ export interface PingProps {
 }
 
 /**
- * Contrat for state
+ * Contract for state
  * @export
  * @interface PingState
  */

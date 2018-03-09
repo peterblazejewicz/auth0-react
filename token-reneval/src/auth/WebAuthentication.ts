@@ -1,9 +1,11 @@
-import autobind from 'autobind-decorator';
-import history from '../utils/history';
-import { AUTH_CONFIG } from './configuration';
-import { Auth0Authentication } from './Auth0Authentication';
 import { Auth0DecodedHash, Auth0Error, WebAuth } from 'auth0-js';
+import autobind from 'autobind-decorator';
+
+import history from '../utils/history';
 import { UserProfile } from './../Model/UserProfile';
+import { Auth0Authentication } from './Auth0Authentication';
+import { AUTH_CONFIG } from './configuration';
+
 /**
  * Web based Auth0 authentication
  *

@@ -1,5 +1,6 @@
-import { UserProfile } from './../Model/UserProfile';
 import { Auth0DecodedHash } from 'auth0-js';
+
+import { UserProfile } from './../Model/UserProfile';
 
 /**
  * Auth0 authentication contract
